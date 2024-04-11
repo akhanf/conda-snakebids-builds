@@ -1,0 +1,42 @@
+{% set name = "plumbum" %}
+{% set version = "1.8.2" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/plumbum-{{ version }}.tar.gz
+  sha256: 9e6dc032f4af952665f32f3206567bc23b7858b1413611afe603a3f8ad9bfd75
+
+build:
+  skip: true  # [py2k]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - python >=3.6
+    - hatchling
+    - hatch-vcs
+    - pip
+  run:
+    - python >=3.6
+    - pywin32-on-windows  # [win]
+
+test:
+  imports:
+    - plumbum
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  summary: 'Plumbum: shell combinators library'
+  license: MIT
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - haris989

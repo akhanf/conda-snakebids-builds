@@ -1,0 +1,44 @@
+{% set name = "pyyaml-include" %}
+{% set version = "2.0.1" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/pyyaml-include-{{ version }}.tar.gz
+  sha256: 127e3e5fc4e0673c2e320013539ec6254e1e5588d825c072a6fefe5d5dd246d7
+
+build:
+  skip: true  # [py<38]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - python >=3.8
+    - setuptools >=64
+    - setuptools-scm >=8
+    - pip
+  run:
+    - python >=3.8
+    - pyyaml >=6.0,<7.0
+    - fsspec >=2021.04.0
+    - typing-extensions  # [py<311]
+
+test:
+  imports:
+    - pyyaml_include
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  summary: 'An extending constructor of PyYAML: include other YAML files into current YAML document'
+  license: GPL-3.0
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - haris989

@@ -1,0 +1,57 @@
+{% set name = "snakebids" %}
+{% set version = "0.0.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: file:///local/scratch/snakebids/dist/snakebids-0.0.0.tar.gz
+  sha256: 5500608759da1d4e67f42a64bb807d8c6f1eb99815aab43ae056bfd96efaf391
+
+build:
+  entry_points:
+    - snakebids = snakebids.admin:main
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - python
+    - pip
+  run:
+    - python >=3.11,<4.0
+    - pybids >=0.16.0,<0.17
+    - typing-extensions >=3.10.0
+    - attrs >=21.2.0
+    - boutiques >=0.5.25,<0.6.0
+    - more-itertools >=8
+    - pvandyken-deprecated 0.0.4
+    - importlib-resources >=5.12.0
+    - numpy >=1.23.2
+    - scipy >=1.10.0
+    - pandas >=2.1.1
+    - copier >=8.2.0
+    - jinja2-time >=0.2.0
+    - requests >=2.31.0
+    - ruamel_yaml >=0.17.2
+    - lazy_loader >=0.3
+
+test:
+  imports:
+    - snakebids
+  commands:
+    - pip check
+    - snakebids create --help
+  requires:
+    - pip
+
+about:
+  summary: BIDS integration into snakemake workflows
+  license: MIT
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - haris989

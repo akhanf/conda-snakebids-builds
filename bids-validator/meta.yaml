@@ -1,0 +1,41 @@
+{% set name = "bids-validator" %}
+{% set version = "1.14.5" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/bids-validator-{{ version }}.tar.gz
+  sha256: 4d721bd5f7fb0fa68cfbc2f9178ecee43beea69d529f846797e190694744827a
+
+build:
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - python >=3.8
+    - setuptools
+    - versioneer
+    - pip
+  run:
+    - python >=3.8
+
+test:
+  imports:
+    - bids_validator
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  summary: Validator for the Brain Imaging Data Structure
+  license: MIT
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - haris989

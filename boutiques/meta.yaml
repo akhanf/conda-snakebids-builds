@@ -1,0 +1,51 @@
+{% set name = "boutiques" %}
+{% set version = "0.5.26" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/boutiques/boutiques/archive/{{ version }}.tar.gz
+  sha256: ff7eeaea085a3790da6aa15ba5a01ad8ed5b93435336c3f192e4275e1126d355
+
+build:
+  entry_points:
+    - bosh=boutiques.bosh:bosh
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - python
+    - simplejson
+    - termcolor
+    - jsonschema
+    - tabulate
+    - pip
+  run:
+    - python
+    - simplejson
+    - termcolor
+    - jsonschema
+    - tabulate
+
+test:
+  imports:
+    - boutiques
+  commands:
+    - pip check
+    - bosh version
+  requires:
+    - pip
+
+about:
+  home: http://github.com/boutiques/boutiques
+  summary: Classes Without Boilerplate
+  license: MIT
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - haris989
