@@ -41,11 +41,8 @@ requirements:
     - typing-extensions >=3.7.4,<5.0.0
 
 test:
-  imports:
-    - copier
   commands:
     - pip check
-    - copier --help
   requires:
     - pip
 

@@ -28,7 +28,7 @@ requirements:
 
 test:
   imports:
-    - pyyaml_include
+    - yaml_include
   commands:
     - pip check
   requires:
