@@ -1,13 +1,13 @@
 {% set name = "snakebids" %}
-{% set version = "0.0.0" %}
+{% set version = "0.11.2" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: file:///local/scratch/snakebids/dist/snakebids-0.0.0.tar.gz
-  sha256: 5500608759da1d4e67f42a64bb807d8c6f1eb99815aab43ae056bfd96efaf391
+  url: file:///local/scratch/snakebids/dist/snakebids-0.11.2.tar.gz
+  sha256: 1dd9583931b27d13f54993e4b87fe8252187957d49d6ab38a9c2b6355353765d
 
 build:
   entry_points:
@@ -19,10 +19,12 @@ build:
 requirements:
   host:
     - python
+    - poetry-core
     - pip
   run:
     - python >=3.11,<4.0
-    - pybids >=0.16.0,<0.17
+    - pybids >=0.16.0
+    - snakemake >=8.0.0
     - typing-extensions >=3.10.0
     - attrs >=21.2.0
     - boutiques >=0.5.25,<0.6.0
@@ -35,7 +37,7 @@ requirements:
     - copier >=8.2.0
     - jinja2-time >=0.2.0
     - requests >=2.31.0
-    - ruamel_yaml >=0.17.2
+    - ruamel.yaml >=0.17.2
     - lazy_loader >=0.3
 
 test:
@@ -43,7 +45,7 @@ test:
     - snakebids
   commands:
     - pip check
-    - snakebids create --help
+    - snakebids --help
   requires:
     - pip
 
