@@ -1,0 +1,47 @@
+{% set name = "poetry-dynamic-versioning" %}
+{% set version = "1.2.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/poetry_dynamic_versioning-{{ version }}.tar.gz
+  sha256: 1a7bbdba2530499e73dfc6ac0af19de29020ab4aaa3e507573877114e6b71ed6
+
+build:
+  entry_points:
+    - poetry-dynamic-versioning = poetry_dynamic_versioning.__main__:main
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - python >=3.7,<4.0
+    - poetry-core >=1.0.0
+    - pip
+  run:
+    - python >=3.7.0,<4.0.0
+    - dunamai >=1.18.0,<2.0.0
+    - tomlkit >=0.4
+    - jinja2 >=2.11.1,<4
+  run_constrained:
+    - poetry >=1.2.0,<2.0.0
+
+test:
+  commands:
+    - pip check
+    - poetry-dynamic-versioning --help
+  requires:
+    - pip
+
+about:
+  home: https://github.com/mtkennerly/poetry-dynamic-versioning
+  summary: Plugin for Poetry to enable dynamic versioning based on VCS tags
+  license: MIT
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - haris989
